@@ -1,3 +1,6 @@
+#https://www.acmicpc.net/problem/24892
+#started on 2022.04.04
+
 from math import *
 
 class Fraction():

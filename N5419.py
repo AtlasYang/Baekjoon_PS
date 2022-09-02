@@ -1,5 +1,6 @@
 #https://www.acmicpc.net/problem/5419
-#
+#2022.09.02.
+#Timeout Code
 
 import math, sys
 
@@ -36,7 +37,7 @@ class SegTree:
     def _update(self, idx, value, start, end, node):
         if idx < start or idx > end:
             return
-        self.tree[idx] += value
+        self.tree[node] += value
         if start == end:
             return
         else:
@@ -48,17 +49,34 @@ class SegTree:
 
 
 def main():
-    n = int(input())
+    n = int(sys.stdin.readline().strip())
     pos = []
     for _ in range(n):
-        pos.append(tuple(map(int, sys.stdin.readline().strip().split())))
+        pos.append(list(map(int, sys.stdin.readline().strip().split())))
+
+    pos.sort(key = lambda x: x[1])
+    temp = 0
+    ty = []
+    for i in range(len(pos)):
+        if i > 0 and pos[i][1] != pos[i - 1][1]:
+            temp += 1
+        ty.append(temp)
+    for i in range(len(pos)):
+        pos[i][1] = ty[i]
         
-    cnt = 0
+    pos.sort(key = lambda x: x[0] * (10 ** 9) - x[1])
+
+    #seg = SegTree([0 for _ in range(75000)])
+    seg = SegTree([0 for _ in range(len(pos))])
     
+    cnt = 0
+    for i in range(len(pos)):
+        cnt += seg.sum(pos[i][1], seg.treelen - 1)
+        seg.update(pos[i][1], 1)
     return cnt
 
 
 if __name__ == '__main__':
-    T = int(input())
+    T = int(sys.stdin.readline().strip())
     for _ in range(T):
-        main()
+        print(main())

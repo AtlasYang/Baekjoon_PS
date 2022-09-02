@@ -18,4 +18,20 @@ class SegTree:
             mid = int((start + end) / 2)
             self.tree[node] = self.init(node * 2, start, mid) + self.init(node * 2 + 1, mid + 1, end)
             return self.tree[node]
+
+
+def main():
+    n = int(input())
+    pos = []
+    for _ in range(n):
+        pos.append(tuple(map(int, sys.stdin.readline().strip().split())))
+        
+    cnt = 0
     
+    return cnt
+
+
+if __name__ == '__main__':
+    T = int(input())
+    for _ in range(T):
+        main()
